@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Tokens ─── */
+:root {
+  --accent:        #4f8cff;
+  --accent-dim:    rgba(79,140,255,0.12);
+  --accent-glow:   rgba(79,140,255,0.22);
+  --green:         #3ecf8e;
+  --green-dim:     rgba(62,207,142,0.12);
+  --amber:         #f5a623;
+  --red:           #ff5c5c;
+  --font-display:  'Instrument Serif', Georgia, serif;
+  --font-body:     'Geist', system-ui, sans-serif;
+  --font-mono:     'Geist Mono', 'Fira Code', monospace;
+  --transition:    0.18s cubic-bezier(0.4,0,0.2,1);
+  --radius-sm:     6px;
+  --radius-md:     10px;
+  --radius-lg:     16px;
+  --radius-xl:     22px;
+}
+
+/* ─── Dark theme (default) ─── */
+[data-theme="dark"] {
+  --bg-base:       #0d0d0d;
+  --bg-surface:    #141414;
+  --bg-raised:     #1c1c1c;
+  --bg-hover:      #222222;
+  --bg-input:      #181818;
+  --border:        rgba(255,255,255,0.07);
+  --border-md:     rgba(255,255,255,0.11);
+  --border-strong: rgba(255,255,255,0.18);
+  --text-1:        #f0f0f0;
+  --text-2:        #8a8a8a;
+  --text-3:        #555555;
+  --dot-color:     rgba(255,255,255,0.045);
+  --shadow-card:   0 0 0 1px rgba(255,255,255,0.06), 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-hover:  0 0 0 1px rgba(79,140,255,0.35), 0 8px 40px rgba(0,0,0,0.55), 0 0 24px rgba(79,140,255,0.08);
+  --noise-opacity: 0.03;
+  --code-bg:       #0a0a0a;
+}
+
+/* ─── Light theme ─── */
+[data-theme="light"] {
+  --bg-base:       #f7f7f5;
+  --bg-surface:    #ffffff;
+  --bg-raised:     #f2f2ef;
+  --bg-hover:      #ebebea;
+  --bg-input:      #fafaf9;
+  --border:        rgba(0,0,0,0.07);
+  --border-md:     rgba(0,0,0,0.10);
+  --border-strong: rgba(0,0,0,0.18);
+  --text-1:        #1a1a1a;
+  --text-2:        #6b6b6b;
+  --text-3:        #aaaaaa;
+  --dot-color:     rgba(0,0,0,0.06);
+  --shadow-card:   0 0 0 1px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-hover:  0 0 0 1px rgba(79,140,255,0.4), 0 8px 32px rgba(79,140,255,0.12), 0 2px 8px rgba(0,0,0,0.08);
+  --noise-opacity: 0.018;
+  --code-bg:       #1e2228;
+}
+
+/* ─── Base ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: var(--bg-base);
+  color: var(--text-1);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dot grid */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border-md); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+/* Page enter animation */
+@keyframes pagein {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter { animation: pagein 0.22s ease both; }
+
+/* Card stagger */
+@keyframes cardin {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Spin */
+@keyframes spin { to { transform: rotate(360deg); } }
+.animate-spin-smooth { animation: spin 0.75s linear infinite; }
+
+/* Pulse dot */
+@keyframes pulsedot {
+  0%,100% { box-shadow: 0 0 0 0 rgba(79,140,255,0.6); }
+  50%      { box-shadow: 0 0 0 4px rgba(79,140,255,0); }
+}
+
+/* Fade up */
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeup { animation: fadeup 0.22s ease both; }
